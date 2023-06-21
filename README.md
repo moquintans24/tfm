@@ -1,4 +1,4 @@
-# Aplicación web de gestión y distribución decontenido digital para una editorial digital.
+# Aplicación web de gestión y distribución decontenido digital para una editora digital.
 
 **Requisitos previos para la instalción**:
   - Instalación de NodeJs y Npm para la gestión de paquetes. Versión de NodeJs v16.17.1, versión de npm 8.15.0.
