@@ -15,10 +15,12 @@ Antes de la ejecución de la aplicación es necesaria la configuración de la ba
   - Se ejecuta en el puerto 8080. Desde el directorio rest-service:
     - Instalar dependencias ’npm install’.
     - Ejecutar ’mvn spring-boot:run’.
+      
 **Servidor H5P**
   - Si se está instalando en Windows, es necesario utilizar Git bash. Se ejecuta en el puerto 8081. Desde el directorio h5p-server:
     - Instalar dependencias ’npm install’.
-    - Ejecutar ’npm start’
+    - Ejecutar ’npm start’.
+      
 **Cliente**
   - Desde el directorio vue-client:
     - Instalar dependencias ’npm install’.
