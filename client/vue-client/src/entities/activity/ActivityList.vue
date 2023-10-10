@@ -425,13 +425,19 @@ const SubscriptionRepository = RepositoryFactory.get("subscriptions");
         },
         _editEndDate(activity){
             this.activityToEdit = activity
+            var month = ''
+            var day = ''
             if(activity.homeworkDate){
                 const date = activity.homeworkDate.split(' ')[0]
                 const time = activity.homeworkDate.split(' ')[1]
-                this.homeworkDate.date = date.split('/')[2]+'-'+date.split('/')[1]+'-'+date.split('/')[0]
+                if(date.split('/')[1].length < 2)  month = '0'+date.split('/')[1]
+                else month = date.split('/')[1]
+                if(date.split('/')[2].length < 2) day = '0'+date.split('/')[2] 
+                else day = date.split('/')[2]
+                // this.homeworkDate.date = date.split('/')[2]+'-'+date.split('/')[1]+'-'+date.split('/')[0]
+                this.homeworkDate.date = day+'-'+month+'-'+date.split('/')[0]
                 this.homeworkDate.time = time
             }
-            
         },
         async updateEndDate(){
             // console.log(this.homeworkDate)

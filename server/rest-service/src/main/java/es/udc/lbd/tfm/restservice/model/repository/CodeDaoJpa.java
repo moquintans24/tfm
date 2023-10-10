@@ -9,6 +9,7 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 
 import es.udc.lbd.tfm.restservice.model.domain.Code;
+import es.udc.lbd.tfm.restservice.model.domain.CodeState;
 import es.udc.lbd.tfm.restservice.model.repository.util.GenericDaoJpa;
 
 @Repository
@@ -32,7 +33,7 @@ public class CodeDaoJpa extends GenericDaoJpa implements CodeDao {
 	
 	@Override
 	public List<Code> findByBookId(Long bookId){
-		return entityManager.createQuery("from Code c where book.id = :bookId",Code.class)
+		return entityManager.createQuery("from Code c where book.id = :bookId order by creationDate desc",Code.class)
 				.setParameter("bookId", bookId).getResultList();
 		
 	}
@@ -45,8 +46,9 @@ public class CodeDaoJpa extends GenericDaoJpa implements CodeDao {
 
 	@Override
 	public List<Code> findByCreationDate(Long bookId, LocalDate creationDate1, LocalDate creationDate2) {
-		return entityManager.createQuery("from Code c where book.id = :bookId and c.creationDate between :creationDate1 and :creationDate2", Code.class)
-					.setParameter("bookId", bookId).setParameter("creationDate1", creationDate1).setParameter("creationDate2", creationDate2).getResultList();
+		return entityManager.createQuery("from Code c where book.id = :bookId and c.creationDate between :creationDate1 and :creationDate2 and state = :codeState", Code.class)
+					.setParameter("bookId", bookId).setParameter("creationDate1", creationDate1).setParameter("creationDate2", creationDate2).setParameter("codeState", CodeState.NEW)
+					.getResultList();
 		
 	}
 

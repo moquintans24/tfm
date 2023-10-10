@@ -134,6 +134,7 @@
 <script>
 import store from "../../common/store";
 import RepositoryFactory from "@/repositories/RepositoryFactory";
+// import * as XLSX from 'xlsx';
 const CodesRepository = RepositoryFactory.get("codes");
 const BooksRepository = RepositoryFactory.get("books");
 const XLSX = require('xlsx');
@@ -274,11 +275,13 @@ export default {
                 }
         },
         exportToExcel(data){ 
+
+            console.log(this.fileName)
             const workSheetColumnNames = [['Codigo','URL']]
             const workBook = XLSX.utils.book_new()
             const workSheet = XLSX.utils.json_to_sheet(data,{origin:'A2',skipHeader:true})
             XLSX.utils.sheet_add_aoa(workSheet, workSheetColumnNames)
-            XLSX.utils.book_append_sheet(workBook,workSheet,this.fileName)
+            XLSX.utils.book_append_sheet(workBook,workSheet,"codes")
             XLSX.writeFile(workBook,this.fileName.concat('.xlsx'))
         },
         csvmaker(data) {

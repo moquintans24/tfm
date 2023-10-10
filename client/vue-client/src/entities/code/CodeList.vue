@@ -149,8 +149,8 @@ export default {
             for(var i = 0; i < data.length; i++){
                 const cds = new Object()
                 cds.code = data[i].code
-                cds.creationDate = data[i].creationDate.substring(0, 10).concat(' ',data[i].creationDate.substring(11,16))
-                cds.expirationDate = data[i].expirationDate.substring(0, 10).concat(' ',data[i].expirationDate.substring(11,16))
+                cds.creationDate = data[i].creationDate.substring(0, 10)//.concat(' ',data[i].creationDate.substring(11,16))
+                cds.expirationDate = data[i].expirationDate.substring(0, 10)//.concat(' ',data[i].expirationDate.substring(11,16))
                 cds.generatedBy = data[i].generatedBy.login
                 switch (data[i].state) {
                     case 'USED':
@@ -166,7 +166,7 @@ export default {
                 cds.authority = data[i].generatedBy.authority
                 codes_.push(cds)
             }
-            this.codes = codes_.sort((a,b) => new Date(b.creationDate).getDate() - new Date(a.creationDate).getDate()).reverse();
+            this.codes = codes_//.sort((a,b) => new Date(b.creationDate).getDate() - new Date(a.creationDate).getDate()).reverse();
         },
         back(){
             this.$router.go(-1);

@@ -580,22 +580,39 @@ export default {
             let formData = new FormData();
             formData.append("code",this.bookCode)
             formData.append("userId",store.state.user.id)
-            // console.log("Book code",this.bookCode)
-            await SubscriptionsRepository.save(formData).then(() => {
-                this.$router.go({
+            
+            await SubscriptionsRepository.save(formData).then(async() => {
+                if(this.$route.params.code){
+                    this.dialog = false
+                    this.$refs.form.reset()
+                    if(this.$route.params.code){
+                        this.$router.push({
+                            path: '/books'
+                        })
+                    }
+
+                    const subscriptions = await SubscriptionsRepository.getByUserId(store.state.user.id);
+                    const books = []
+                    for(var i=0;i<subscriptions.length;i++){
+                        if(subscriptions[i].code!=null){
+                            books.push(subscriptions[i].code.book)
+                        }else if(subscriptions[i].classGroup!=null){ //Alumnos que se suscriben a una clase, no tienen código de libro
+                            books.push(subscriptions[i].classGroup.teacher.code.book) 
+                        }
+                    } this.setData(books,subscriptions)
+                }else{
+                    this.$router.go({
                         name: "BookList"
                     })
+                }
+                
             }).catch(err => {
               this.$notify({
                 text: err.response.data.message,
                 type: "error"
               });
             });
-            if(this.$route.params.code){
-                this.$router.push({
-                    path: '/books'
-                })
-            }
+            
             
         },
         async addNewClass(){
